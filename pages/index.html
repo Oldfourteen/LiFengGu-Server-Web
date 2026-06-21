@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>莉枫谷世界 · Minecraft 服务器</title>
+    <script>
+        (function () {
+            var key = 'lifenggu-theme';
+            var stored = localStorage.getItem(key);
+            var preference = (stored === 'light' || stored === 'dark' || stored === 'system') ? stored : 'system';
+            var theme = preference === 'system'
+                ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+                : preference;
+            document.documentElement.setAttribute('data-theme', theme);
+            document.documentElement.setAttribute('data-theme-preference', preference);
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root,
+        html[data-theme="dark"] {
+            --white: #ffffff;
+            --black: #000000;
+            --gray-light: #c6c6c6;
+            --gray: #888888;
+            --gray-dark: #555555;
+            --gray-darker: #333333;
+            --text-body: #c6c6c6;
+            --text-heading: #ffffff;
+            --text-muted: #888888;
+            --bg-body: #1a1a1a;
+            --bg-header: rgba(0, 0, 0, 0.88);
+            --bg-panel: rgba(0, 0, 0, 0.72);
+            --bg-footer: rgba(0, 0, 0, 0.75);
+            --bg-tag: rgba(0, 0, 0, 0.45);
+            --bg-btn: #c6c6c6;
+            --bg-carousel-btn: rgba(0, 0, 0, 0.65);
+            --bg-carousel-btn-hover: rgba(0, 0, 0, 0.85);
+            --border-bevel-light: #ffffff;
+            --border-bevel-dark: #555555;
+            --border-deep: #333333;
+            --border-deeper: #1a1a1a;
+            --text-shadow: #333333;
+            --btn-icon-filter: grayscale(100%) brightness(0.2);
+            --join-gradient: linear-gradient(180deg, #b5b5b5 0%, #7e7e7e 45%, #4d4d4d 100%);
+            --modal-secondary-gradient: linear-gradient(180deg, #9e9e9e 0%, #6f6f6f 55%, #454545 100%);
+            --dash-line: rgba(255, 255, 255, 0.15);
+            --panel-inset-light: rgba(255, 255, 255, 0.15);
+            --panel-inset-dark: rgba(0, 0, 0, 0.35);
+            --panel-outer-shadow: rgba(0, 0, 0, 0.45);
+            --header-shadow: rgba(0, 0, 0, 0.5);
+            --page-wash: transparent;
+            color-scheme: dark;
+        }
+
+        html[data-theme="light"] {
+            --white: #ffffff;
+            --black: #000000;
+            --gray-light: #666666;
+            --gray: #555555;
+            --gray-dark: #333333;
+            --gray-darker: #1a1a1a;
+            --text-body: #333333;
+            --text-heading: #1a1a1a;
+            --text-muted: #666666;
+            --bg-body: #ececec;
+            --bg-header: rgba(255, 255, 255, 0.94);
+            --bg-panel: rgba(255, 255, 255, 0.9);
+            --bg-footer: rgba(255, 255, 255, 0.88);
+            --bg-tag: rgba(240, 240, 240, 0.85);
+            --bg-btn: #d8d8d8;
+            --bg-carousel-btn: rgba(255, 255, 255, 0.82);
+            --bg-carousel-btn-hover: rgba(255, 255, 255, 0.95);
+            --border-bevel-light: #ffffff;
+            --border-bevel-dark: #aaaaaa;
+            --border-deep: #bbbbbb;
+            --border-deeper: #888888;
+            --text-shadow: #dddddd;
+            --btn-icon-filter: grayscale(100%) brightness(0.25);
+            --join-gradient: linear-gradient(180deg, #cccccc 0%, #aaaaaa 45%, #888888 100%);
+            --modal-secondary-gradient: linear-gradient(180deg, #c6c6c6 0%, #aaaaaa 55%, #8d8d8d 100%);
+            --dash-line: rgba(0, 0, 0, 0.15);
+            --panel-inset-light: rgba(255, 255, 255, 0.8);
+            --panel-inset-dark: rgba(0, 0, 0, 0.08);
+            --panel-outer-shadow: rgba(0, 0, 0, 0.12);
+            --header-shadow: rgba(0, 0, 0, 0.1);
+            --page-wash: rgba(255, 255, 255, 0.28);
+            color-scheme: light;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        body {
+            font-family: "Press Start 2P", monospace;
+            color: var(--text-body);
+            background-color: var(--bg-body);
+            background-image: linear-gradient(var(--page-wash), var(--page-wash)),
+                              url('../asset/image/pink_wool_1920x1080.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            image-rendering: pixelated;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        .cherry-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 50;
+            overflow: hidden;
+        }
+
+        .cherry-petal {
+            position: absolute;
+            top: -8vh;
+            left: var(--left, 50%);
+            width: var(--size, 20px);
+            height: auto;
+            opacity: var(--opacity, 0.9);
+            image-rendering: pixelated;
+            animation: cherry-fall var(--duration, 12s) linear var(--delay, 0s) forwards;
+            will-change: transform;
+        }
+
+        @keyframes cherry-fall {
+            0% {
+                transform: translate3d(0, -8vh, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate3d(var(--drift-a, 30px), 25vh, 0) rotate(calc(var(--rotate, 360deg) * 0.25));
+            }
+            50% {
+                transform: translate3d(var(--drift-b, -20px), 50vh, 0) rotate(calc(var(--rotate, 360deg) * 0.5));
+            }
+            75% {
+                transform: translate3d(var(--drift-c, 40px), 75vh, 0) rotate(calc(var(--rotate, 360deg) * 0.75));
+            }
+            100% {
+                transform: translate3d(var(--drift-d, 10px), 108vh, 0) rotate(var(--rotate, 360deg));
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cherry-layer {
+                display: none;
+            }
+        }
+
+        .mc-panel {
+            background: var(--bg-panel);
+            border: 4px solid;
+            border-color: var(--border-bevel-light) var(--border-bevel-dark) var(--border-bevel-dark) var(--border-bevel-light);
+            box-shadow: inset 2px 2px 0 var(--panel-inset-light),
+                        inset -2px -2px 0 var(--panel-inset-dark),
+                        0 8px 24px var(--panel-outer-shadow);
+            transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .mc-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            cursor: pointer;
+            background: var(--bg-btn);
+            border: 4px solid;
+            border-color: var(--border-bevel-light) var(--border-bevel-dark) var(--border-bevel-dark) var(--border-bevel-light);
+            box-shadow: inset 1px 1px 0 var(--panel-inset-light);
+            transition: transform 0.08s ease, filter 0.08s ease, background-color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .mc-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        .mc-btn:active {
+            border-color: var(--gray-dark) var(--white) var(--white) var(--gray-dark);
+            transform: translateY(2px);
+        }
+
+        .mc-btn img {
+            width: 24px;
+            height: 24px;
+            filter: var(--btn-icon-filter);
+            image-rendering: auto;
+        }
+
+        .mc-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 24px;
+            background: var(--bg-header);
+            border-bottom: 4px solid var(--border-deep);
+            box-shadow: 0 4px 0 var(--header-shadow);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .logo-img {
+            display: block;
+            height: 52px;
+            width: auto;
+            max-width: min(320px, 55vw);
+            image-rendering: pixelated;
+        }
+
+        .logo-tagline {
+            font-size: clamp(14px, 2.2vw, 22px);
+            line-height: 1.4;
+            color: var(--gray-light);
+            white-space: nowrap;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .carousel-section {
+            padding: 20px 24px 0;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            aspect-ratio: 16 / 6;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            image-rendering: auto;
+            border: 4px solid;
+            border-color: var(--border-bevel-light) var(--border-bevel-dark) var(--border-bevel-dark) var(--border-bevel-light);
+        }
+
+        .beta-start-badge {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            padding: 14px 22px 18px;
+            font-size: clamp(13px, 1.8vw, 18px);
+            line-height: 1.85;
+            letter-spacing: 0.6px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.9);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.42) 70%, rgba(0, 0, 0, 0) 100%);
+            border: 4px solid;
+            border-color: var(--border-bevel-light) var(--border-bevel-dark) var(--border-bevel-dark) var(--border-bevel-light);
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.28);
+            pointer-events: none;
+            max-width: calc(100% - 140px);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            font-family: "Press Start 2P", monospace;
+            font-size: 18px;
+            color: var(--text-heading);
+            background: var(--bg-carousel-btn);
+            border: 3px solid;
+            border-color: var(--border-bevel-light) var(--border-bevel-dark) var(--border-bevel-dark) var(--border-bevel-light);
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .carousel-btn:hover {
+            background: var(--bg-carousel-btn-hover);
+        }
+
+        .carousel-btn.prev {
+            left: 12px;
+        }
+
+        .carousel-btn.next {
+            right: 12px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+
+        .carousel-dot {
+            width: 14px;
+            height: 14px;
+            padding: 0;
+            cursor: pointer;
+            background: var(--border-bevel-dark);
+            border: 2px solid;
+            border-color: var(--text-muted) var(--border-deeper) var(--border-deeper) var(--text-muted);
+            transition: background-color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--text-heading);
+            border-color: var(--border-bevel-light) var(--border-bevel-dark) var(--border-bevel-dark) var(--border-bevel-light);
+        }
+
+        .mc-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 28px 24px 48px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+        }
+
+        .hero-panel {
+            padding: 32px 28px;
+        }
+
+        .main-title {
+            margin: 0 0 20px;
+            font-size: clamp(24px, 3.8vw, 38px);
+            line-height: 1.6;
+            color: var(--text-heading);
+            text-shadow: 3px 3px 0 var(--text-shadow);
+            transition: color 0.25s ease;
+        }
+
+        .hero-desc {
+            margin: 0 0 28px;
+            font-size: clamp(13px, 1.8vw, 18px);
+            line-height: 2;
+            color: var(--text-body);
+            transition: color 0.25s ease;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 10px 14px;
+            font-size: clamp(11px, 1.3vw, 14px);
+            color: var(--text-body);
+            background: var(--bg-tag);
+            border: 2px solid var(--border-deep);
+        }
+
+        .info-panel {
+            padding: 24px;
+        }
+
+        .panel-title {
+            margin: 0 0 20px;
+            font-size: clamp(16px, 2vw, 22px);
+            color: var(--text-heading);
+            text-shadow: 2px 2px 0 var(--text-shadow);
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 0;
+            font-size: clamp(12px, 1.5vw, 16px);
+            border-bottom: 2px dashed var(--dash-line);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: var(--text-heading);
+            text-align: right;
+            word-break: break-all;
+        }
+
+        .info-value.highlight {
+            color: var(--text-heading);
+        }
+
+        .join-btn {
+            display: block;
+            width: 100%;
+            margin-top: 22px;
+            padding: 18px;
+            font-family: "Press Start 2P", monospace;
+            font-size: clamp(11px, 1.4vw, 15px);
+            color: var(--text-heading);
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            background: var(--join-gradient);
+            border: 4px solid;
+            border-color: var(--white) var(--black) var(--black) var(--white);
+            box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25);
+            transition: filter 0.1s ease, transform 0.08s ease;
+        }
+
+        .join-btn:hover {
+            filter: brightness(1.12);
+        }
+
+        .join-btn:active {
+            border-color: var(--black) var(--white) var(--white) var(--black);
+            transform: translateY(2px);
+        }
+
+        .mc-footer {
+            padding: 20px 24px 28px;
+            text-align: center;
+            font-size: clamp(10px, 1.2vw, 12px);
+            line-height: 2;
+            color: var(--text-muted);
+            background: var(--bg-footer);
+            border-top: 4px solid var(--border-deep);
+        }
+
+        .mc-footer a {
+            color: var(--text-body);
+            text-decoration: none;
+        }
+
+        .mc-footer a:hover {
+            color: var(--text-heading);
+        }
+
+        .mc-modal-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 999;
+        }
+
+        .mc-modal-overlay[hidden] {
+            display: none;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .mc-modal {
+            width: min(560px, 100%);
+            padding: 18px 18px 16px;
+        }
+
+        .mc-modal-title {
+            margin: 0 0 12px;
+            font-size: clamp(13px, 1.8vw, 18px);
+            color: var(--text-heading);
+            text-shadow: 2px 2px 0 var(--text-shadow);
+        }
+
+        .mc-modal-message {
+            font-size: clamp(11px, 1.5vw, 14px);
+            line-height: 1.9;
+            color: var(--text-body);
+            margin-bottom: 14px;
+            word-break: break-word;
+        }
+
+        .mc-modal-input {
+            width: 100%;
+            padding: 14px 12px;
+            font-family: "Press Start 2P", monospace;
+            font-size: clamp(10px, 1.4vw, 13px);
+            color: var(--text-heading);
+            background: rgba(0, 0, 0, 0.35);
+            border: 4px solid;
+            border-color: var(--border-bevel-light) var(--border-bevel-dark) var(--border-bevel-dark) var(--border-bevel-light);
+            outline: none;
+            box-shadow: inset 2px 2px 0 var(--panel-inset-dark);
+        }
+
+        html[data-theme="light"] .mc-modal-input {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--text-heading);
+        }
+
+        .mc-modal-input:focus {
+            filter: brightness(1.06);
+        }
+
+        .mc-modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .mc-modal-actions.single {
+            grid-template-columns: 1fr;
+            justify-items: center;
+        }
+
+        .mc-modal-actions.single .mc-modal-btn {
+            width: min(320px, 100%);
+        }
+
+        .mc-modal-btn {
+            padding: 14px 10px;
+            font-family: "Press Start 2P", monospace;
+            font-size: clamp(10px, 1.3vw, 12px);
+            color: var(--text-heading);
+            cursor: pointer;
+            background: var(--join-gradient);
+            border: 4px solid;
+            border-color: var(--white) var(--black) var(--black) var(--white);
+            box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25);
+            transition: filter 0.1s ease, transform 0.08s ease;
+        }
+
+        .mc-modal-btn.secondary {
+            background: var(--modal-secondary-gradient);
+        }
+
+        .mc-modal-btn:hover {
+            filter: brightness(1.12);
+        }
+
+        .mc-modal-btn:active {
+            border-color: var(--black) var(--white) var(--white) var(--black);
+            transform: translateY(2px);
+        }
+
+        @media (max-width: 768px) {
+            .mc-header {
+                flex-direction: row;
+                align-items: center;
+                padding: 12px 16px;
+            }
+
+            .logo-img {
+                height: 40px;
+                max-width: min(220px, 60vw);
+            }
+
+            .logo-tagline {
+                font-size: clamp(11px, 3.2vw, 16px);
+            }
+
+            .carousel-section {
+                padding: 12px 12px 0;
+            }
+
+            .carousel-slide {
+                aspect-ratio: 16 / 9;
+            }
+
+            .beta-start-badge {
+                top: 10px;
+                padding: 12px 14px 16px;
+                font-size: clamp(12px, 3.6vw, 16px);
+                max-width: calc(100% - 96px);
+            }
+
+            .mc-main {
+                grid-template-columns: 1fr;
+                padding: 20px 12px 36px;
+            }
+
+
+            .hero-panel,
+            .info-panel {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cherry-layer" id="cherryLayer" aria-hidden="true"></div>
+
+    <header class="mc-header">
+        <div class="logo">
+            <img class="logo-img" src="../asset/image/logo.png" alt="莉枫谷服务器">
+            <span class="logo-tagline">1.20.1 养老生存 =v=</span>
+        </div>
+        <div class="nav-actions">
+            <button class="mc-btn mod-button" type="button" aria-label="切换主题">
+                <img src="../asset/image/sun-regular-full.svg" alt="">
+            </button>
+            <a class="mc-btn github-button" href="https://github.com/Oldfourteen" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <img src="../asset/image/github-brands-solid-full.svg" alt="">
+            </a>
+        </div>
+    </header>
+
+    <section class="carousel-section">
+        <div class="carousel mc-panel" id="carousel">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide">
+                    <img src="../asset/image/lunbo1.png" alt="莉枫谷服务器截图 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../asset/image/lunbo2.png" alt="莉枫谷服务器截图 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../asset/image/lunbo3.png" alt="莉枫谷服务器截图 3">
+                </div>
+            </div>
+            <div class="beta-start-badge">内测开始时间：2026年7月4号12:00</div>
+            <button class="carousel-btn prev" type="button" id="prevBtn" aria-label="上一张">‹</button>
+            <button class="carousel-btn next" type="button" id="nextBtn" aria-label="下一张">›</button>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+    </section>
+
+    <main class="mc-main">
+        <section class="hero-panel mc-panel">
+            <h1 class="main-title">莉枫谷服务器</h1>
+            <p class="hero-desc">
+                欢迎来到莉枫谷！在这里你可以探索广阔的世界、
+                与伙伴共建家园、体验原版生存与特色玩法。
+                加入我们的方块世界，开启你的冒险之旅。
+            </p>
+            <div class="hero-tags">
+                <span class="tag">原版生存</span>
+                <span class="tag">友好社区</span>
+                <span class="tag">长期运营</span>
+                <span class="tag">稳定流畅</span>
+            </div>
+        </section>
+
+        <aside class="info-panel mc-panel">
+            <h2 class="panel-title">服务器信息</h2>
+            <div class="info-row">
+                <span class="info-label">服务器地址</span>
+                <span class="info-value highlight">暂不公开~</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">游戏版本</span>
+                <span class="info-value">Java 1.20.1</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">在线模式</span>
+                <span class="info-value">离线+UUID即可加入</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">服务器类型</span>
+                <span class="info-value">生存 · 建筑 · 社交</span>
+            </div>
+            <a class="join-btn" href="#">立即下载服务器客户端</a>
+        </aside>
+    </main>
+
+    <footer class="mc-footer">
+        <p>© 2026 莉枫谷 Minecraft 服务器服主 老十四 保留所有权利</p>
+        <p>老十四出品</p>
+        <p>
+            <a href="https://github.com/Oldfourteen" target="_blank" rel="noopener noreferrer">GitHub</a>
+            · 方块世界，因你而精彩~
+        </p>
+    </footer>
+
+    <div class="mc-modal-overlay" id="mcPromptOverlay" hidden>
+        <div class="mc-modal mc-panel" role="dialog" aria-modal="true" aria-labelledby="mcPromptTitle">
+            <div class="mc-modal-title" id="mcPromptTitle">提示</div>
+            <div class="mc-modal-message" id="mcPromptMessage"></div>
+            <input class="mc-modal-input" id="mcPromptInput" type="text" autocomplete="off">
+            <div class="mc-modal-actions">
+                <button class="mc-modal-btn" type="button" data-action="ok">确定</button>
+                <button class="mc-modal-btn secondary" type="button" data-action="cancel">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mcPrompt(options) {
+            return new Promise(function (resolve) {
+                var overlay = document.getElementById('mcPromptOverlay');
+                var titleEl = document.getElementById('mcPromptTitle');
+                var messageEl = document.getElementById('mcPromptMessage');
+                var inputEl = document.getElementById('mcPromptInput');
+                var okBtn = overlay ? overlay.querySelector('[data-action="ok"]') : null;
+                var cancelBtn = overlay ? overlay.querySelector('[data-action="cancel"]') : null;
+
+                if (!overlay || !titleEl || !messageEl || !inputEl || !okBtn || !cancelBtn) {
+                    resolve(null);
+                    return;
+                }
+
+                var opts = options || {};
+                var showInput = opts.showInput !== false;
+                var cancelable = opts.cancelable !== false;
+                var defaultValue = typeof opts.defaultValue === 'string' ? opts.defaultValue : '';
+                var placeholder = typeof opts.placeholder === 'string' ? opts.placeholder : '';
+                var okText = typeof opts.okText === 'string' ? opts.okText : '确定';
+                var cancelText = typeof opts.cancelText === 'string' ? opts.cancelText : '取消';
+
+                titleEl.textContent = typeof opts.title === 'string' ? opts.title : '提示';
+                messageEl.textContent = typeof opts.message === 'string' ? opts.message : '';
+                okBtn.textContent = okText;
+                cancelBtn.textContent = cancelText;
+                cancelBtn.style.display = cancelable ? '' : 'none';
+                var actionsEl = overlay.querySelector('.mc-modal-actions');
+                if (actionsEl) {
+                    actionsEl.classList.toggle('single', !cancelable);
+                }
+
+                inputEl.value = defaultValue;
+                inputEl.placeholder = placeholder;
+                inputEl.style.display = showInput ? '' : 'none';
+
+                overlay.hidden = false;
+                document.body.classList.add('modal-open');
+
+                var previousActive = document.activeElement;
+
+                function cleanup() {
+                    okBtn.removeEventListener('click', onOk);
+                    cancelBtn.removeEventListener('click', onCancel);
+                    overlay.removeEventListener('click', onOverlayClick);
+                    document.removeEventListener('keydown', onKeyDown, true);
+                }
+
+                function close(result) {
+                    overlay.hidden = true;
+                    document.body.classList.remove('modal-open');
+                    cleanup();
+                    if (previousActive && previousActive.focus) {
+                        previousActive.focus();
+                    }
+                    resolve(result);
+                }
+
+                function onOk() {
+                    close(showInput ? inputEl.value : true);
+                }
+
+                function onCancel() {
+                    if (!cancelable) return;
+                    close(null);
+                }
+
+                function onOverlayClick(event) {
+                    if (event.target === overlay) {
+                        onCancel();
+                    }
+                }
+
+                function onKeyDown(event) {
+                    if (event.key === 'Escape') {
+                        event.preventDefault();
+                        onCancel();
+                    } else if (event.key === 'Enter') {
+                        event.preventDefault();
+                        onOk();
+                    } else if (event.key === 'Tab') {
+                        if (overlay.hidden) return;
+                        var focusables = cancelable ? [inputEl, okBtn, cancelBtn] : [inputEl, okBtn];
+                        if (!showInput) {
+                            focusables = cancelable ? [okBtn, cancelBtn] : [okBtn];
+                        }
+                        var activeIndex = focusables.indexOf(document.activeElement);
+                        if (activeIndex === -1) activeIndex = 0;
+                        var nextIndex = event.shiftKey ? activeIndex - 1 : activeIndex + 1;
+                        if (nextIndex < 0) nextIndex = focusables.length - 1;
+                        if (nextIndex >= focusables.length) nextIndex = 0;
+                        event.preventDefault();
+                        focusables[nextIndex].focus();
+                    }
+                }
+
+                okBtn.addEventListener('click', onOk);
+                cancelBtn.addEventListener('click', onCancel);
+                overlay.addEventListener('click', onOverlayClick);
+                document.addEventListener('keydown', onKeyDown, true);
+
+                setTimeout(function () {
+                    if (showInput) {
+                        inputEl.focus();
+                        inputEl.select();
+                    } else {
+                        okBtn.focus();
+                    }
+                }, 0);
+            });
+        }
+
+        function mcAlert(message, options) {
+            var opts = options || {};
+            opts.message = message;
+            opts.showInput = false;
+            opts.cancelable = false;
+            opts.okText = typeof opts.okText === 'string' ? opts.okText : '确定';
+            return mcPrompt(opts);
+        }
+
+        (function () {
+            var track = document.getElementById('carouselTrack');
+            var dotsContainer = document.getElementById('carouselDots');
+            var prevBtn = document.getElementById('prevBtn');
+            var nextBtn = document.getElementById('nextBtn');
+            var slides = track.children;
+            var total = slides.length;
+            var current = 0;
+            var timer = null;
+
+            function goTo(index) {
+                current = (index + total) % total;
+                track.style.transform = 'translateX(-' + (current * 100) + '%)';
+
+                var dots = dotsContainer.children;
+                for (var i = 0; i < dots.length; i++) {
+                    dots[i].classList.toggle('active', i === current);
+                }
+            }
+
+            function startAutoPlay() {
+                stopAutoPlay();
+                timer = setInterval(function () {
+                    goTo(current + 1);
+                }, 4500);
+            }
+
+            function stopAutoPlay() {
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+
+            for (var i = 0; i < total; i++) {
+                (function (index) {
+                    var dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', '第 ' + (index + 1) + ' 张');
+                    dot.addEventListener('click', function () {
+                        goTo(index);
+                        startAutoPlay();
+                    });
+                    dotsContainer.appendChild(dot);
+                })(i);
+            }
+
+            prevBtn.addEventListener('click', function () {
+                goTo(current - 1);
+                startAutoPlay();
+            });
+
+            nextBtn.addEventListener('click', function () {
+                goTo(current + 1);
+                startAutoPlay();
+            });
+
+            var carousel = document.getElementById('carousel');
+            carousel.addEventListener('mouseenter', stopAutoPlay);
+            carousel.addEventListener('mouseleave', startAutoPlay);
+
+            startAutoPlay();
+        })();
+
+        (function () {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return;
+            }
+
+            var layer = document.getElementById('cherryLayer');
+            var cherryPaths = [
+                '../asset/image/cherry_0.png',
+                '../asset/image/cherry_1.png',
+                '../asset/image/cherry_3.png',
+                '../asset/image/cherry_4.png',
+                '../asset/image/cherry_5.png',
+                '../asset/image/cherry_6.png',
+                '../asset/image/cherry_7.png',
+                '../asset/image/cherry_8.png'
+            ];
+            var cherryImages = [];
+            var i;
+
+            var maxPetals = window.innerWidth <= 768 ? 24 : 40;
+            var spawnInterval = window.innerWidth <= 768 ? 1100 : 750;
+            var spawnTimer = null;
+
+            function randomBetween(min, max) {
+                return min + Math.random() * (max - min);
+            }
+
+            function preloadCherryImages() {
+                var promises = [];
+
+                for (i = 0; i < cherryPaths.length; i++) {
+                    var img = new Image();
+                    img.src = cherryPaths[i];
+                    cherryImages.push(img);
+
+                    if (img.decode) {
+                        promises.push(img.decode().catch(function () { }));
+                    }
+                }
+
+                if (typeof Promise === 'undefined') {
+                    return null;
+                }
+
+                return Promise.all(promises);
+            }
+
+            function pickCherrySrc() {
+                if (cherryImages.length) {
+                    return cherryImages[Math.floor(Math.random() * cherryImages.length)].src;
+                }
+
+                return cherryPaths[Math.floor(Math.random() * cherryPaths.length)];
+            }
+
+            function createPetal() {
+                if (layer.children.length >= maxPetals) {
+                    return;
+                }
+
+                var petal = document.createElement('img');
+                var size = randomBetween(14, 36);
+                var left = randomBetween(0, 100);
+                var duration = randomBetween(9, 18);
+                var drift = randomBetween(40, 140) * (Math.random() > 0.5 ? 1 : -1);
+
+                petal.className = 'cherry-petal';
+                petal.src = pickCherrySrc();
+                petal.alt = '';
+                petal.draggable = false;
+                petal.style.setProperty('--left', left + '%');
+                petal.style.setProperty('--size', size + 'px');
+                petal.style.setProperty('--opacity', randomBetween(0.65, 1).toFixed(2));
+                petal.style.setProperty('--duration', duration + 's');
+                petal.style.setProperty('--delay', randomBetween(0, 1.5) + 's');
+                petal.style.setProperty('--rotate', randomBetween(-540, 540) + 'deg');
+                petal.style.setProperty('--drift-a', drift + 'px');
+                petal.style.setProperty('--drift-b', (-drift * 0.6) + 'px');
+                petal.style.setProperty('--drift-c', (drift * 0.85) + 'px');
+                petal.style.setProperty('--drift-d', (drift * 0.25) + 'px');
+
+                petal.addEventListener('animationend', function () {
+                    petal.remove();
+                });
+
+                layer.appendChild(petal);
+            }
+
+            function startSpawning() {
+                stopSpawning();
+                spawnTimer = setInterval(createPetal, spawnInterval);
+            }
+
+            function stopSpawning() {
+                if (spawnTimer) {
+                    clearInterval(spawnTimer);
+                    spawnTimer = null;
+                }
+            }
+
+            function startCherry() {
+                for (i = 0; i < 14; i++) {
+                    setTimeout(createPetal, i * 220);
+                }
+
+                startSpawning();
+            }
+
+            var preloadPromise = preloadCherryImages();
+            if (preloadPromise && preloadPromise.then) {
+                preloadPromise.then(startCherry, startCherry);
+            } else {
+                startCherry();
+            }
+
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) {
+                    stopSpawning();
+                } else {
+                    startSpawning();
+                }
+            });
+        })();
+
+        (function () {
+            var key = 'lifenggu-theme';
+            var btn = document.querySelector('.mod-button');
+            var icon = btn ? btn.querySelector('img') : null;
+            var media = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function getPreference() {
+                var stored = localStorage.getItem(key);
+                return (stored === 'light' || stored === 'dark' || stored === 'system') ? stored : 'system';
+            }
+
+            function resolveTheme(preference) {
+                if (preference === 'light' || preference === 'dark') {
+                    return preference;
+                }
+                return media.matches ? 'dark' : 'light';
+            }
+
+            function applyPreference(preference) {
+                var theme = resolveTheme(preference);
+                document.documentElement.setAttribute('data-theme', theme);
+                document.documentElement.setAttribute('data-theme-preference', preference);
+                localStorage.setItem(key, preference);
+
+                if (icon) {
+                    icon.src = theme === 'light'
+                        ? '../asset/image/moon-regular-full.svg'
+                        : '../asset/image/sun-regular-full.svg';
+                }
+
+                if (btn) {
+                    var preferenceLabel = preference === 'system'
+                        ? '跟随系统'
+                        : (preference === 'light' ? '浅色' : '深色');
+                    var themeLabel = theme === 'light' ? '浅色' : '深色';
+                    btn.setAttribute('aria-label', '主题：' + preferenceLabel + '（当前：' + themeLabel + '）');
+                    btn.title = '主题：' + preferenceLabel;
+                }
+            }
+
+            function nextPreference(preference) {
+                if (preference === 'system') return 'light';
+                if (preference === 'light') return 'dark';
+                return 'system';
+            }
+
+            if (!btn) return;
+
+            applyPreference(getPreference());
+
+            btn.addEventListener('click', function () {
+                applyPreference(nextPreference(getPreference()));
+            });
+
+            var onChange = function () {
+                if (getPreference() === 'system') {
+                    applyPreference('system');
+                }
+            };
+
+            if (media.addEventListener) {
+                media.addEventListener('change', onChange);
+            } else if (media.addListener) {
+                media.addListener(onChange);
+            }
+        })();
+
+        (function () {
+            var downloadBtn = document.querySelector('.join-btn');
+            if (!downloadBtn) return;
+
+            downloadBtn.addEventListener('click', function (event) {
+                event.preventDefault();
+                mcAlert('服务器内测未开始~敬请期待QWQ');
+            });
+        })();
+    </script>
+    <script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.1/dist/autoload.js"></script>
+</body>
+</html>
